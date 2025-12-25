@@ -1,29 +1,28 @@
-# BookSummarizer // Elite Knowledge Engine 🧠
+# BookSummarizer
 
-![Status](https://img.shields.io/badge/Status-Stable-success)
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![BookSummarizer Logo](logo.jpg)
 
-**BookSummarizer** is a high-performance desktop tool for ambitious learners. It bridges the gap between AI-generated knowledge summaries and your personal "Second Brain" on Discord.
+**BookSummarizer** is a modern desktop utility that streamlines the process of capturing, synthesizing, and archiving knowledge directly to your Discord server.
 
-Designed for productivity enthusiasts who want to curate, digest, and archive knowledge with zero friction.
+It converts text summaries into clean, searchable Discord embeds and automatically generates audio versions (TTS) in English or Polish, creating a personal "second brain" for your knowledge.
 
-## ✨ Features
+## ✨ Key Features
 
-* **Cyber-Minimalist UI:** Built with CustomTkinter, featuring a Zinc/Indigo dark theme.
-* **Discord Integration:** Sends beautifully formatted white-label embeds directly to your categorized Discord channels.
-* **Neural Audio:** Automatically detects language (EN/PL) and generates an MP3 summary using Google TTS.
-* **Smart Splitting:** Automatically handles long summaries by splitting them into multiple parts (bypassing Discord's 4096 char limit).
-* **Privacy First:** Webhooks are handled via environment variables.
+* **Modern Dark UI:** Clean interface built with CustomTkinter, featuring a dark theme and responsive inputs.
+* **Auto-Generated Audio:** Automatically detects language (EN/PL) and converts summaries to MP3 using Google TTS.
+* **Clean Discord Embeds:** Formatted for readability with a clean white style.
+* **Smart Message Splitting:** Automatically handles long texts by bypassing Discord's character limits.
+* **Secure Configuration:** Webhooks are handled via environment variables for security.
 
-## 🚀 Installation
+## 🚀 Getting Started
 
-1.  Clone the repository:
+1.  **Clone the repository:**
     ```bash
     git clone [https://github.com/YOUR_USERNAME/BookSummarizer.git](https://github.com/YOUR_USERNAME/BookSummarizer.git)
     cd BookSummarizer
     ```
 
-2.  Install dependencies:
+2.  **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
@@ -36,27 +35,19 @@ Designed for productivity enthusiasts who want to curate, digest, and archive kn
     WH_SCI="your_science_webhook_url"
     WH_OTH="your_other_webhook_url"
     ```
-    *Alternatively, you can hardcode them in `main.py` (not recommended for public repos).*
 
-4.  **Add Logo:**
-    Place a `logo.jpg` file in the root folder (it will be automatically rounded and processed).
-
-5.  Run the engine:
+4.  **Run the application:**
     ```bash
     python main.py
     ```
 
-## 🛠 Tech Stack
+## 🛠️ Tech Stack
 
+* **Python 3.10+**
 * **GUI:** CustomTkinter
-* **Audio:** gTTS (Google Text-to-Speech)
-* **Processing:** Pillow (Image Ops), LangDetect (Polyglot support)
-* **Network:** Requests (Webhook Payloads)
-
-## 👤 Author
-
-**landzi1**
-* [GitHub Profile](https://github.com/landzi1)
+* **Audio:** gTTS, LangDetect
+* **Processing:** Pillow (PIL)
+* **Network:** Requests
 
 ---
-*Built for the Elite Ball Knowledge community.*
+Created by [landzi1](https://github.com/landzi1).

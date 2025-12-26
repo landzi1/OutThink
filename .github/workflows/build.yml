@@ -12,7 +12,13 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            TARGET: linux
+            OUT_FILE_PATTERN: "BookSummarizer*.AppImage" # Szukamy AppImage
+          - os: windows-latest
+            TARGET: windows
+            OUT_FILE_PATTERN: "dist/BookSummarizer.exe"
 
     steps:
       - uses: actions/checkout@v4
@@ -22,17 +28,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      # KROK DIAGNOSTYCZNY: Pokaż jakie pliki są w folderze
-      - name: 🔍 List files (Debug)
+      # KROK: Pokaż pliki (Debug)
+      - name: 🔍 List files
         run: |
-          python -c "import os; print('FILES IN REPO:', os.listdir('.'))"
+          python -c "import os; print('FILES:', os.listdir('.'))"
 
-      # Instalacja bibliotek graficznych (Tylko Linux)
-      - name: Install Linux Deps
+      # Instalacja zależności systemowych (Linux)
+      - name: Install System Deps (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-tk tcl-dev tk-dev
+          sudo apt-get install -y python3-tk tcl-dev tk-dev fuse libfuse2
 
       - name: Install Python Deps
         run: |
@@ -40,22 +46,53 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      # BUDOWANIE (WINDOWS)
+      # 1. BUDOWANIE BINARKI (WINDOWS)
       - name: Build EXE (Windows)
         if: matrix.os == 'windows-latest'
-        # Upewnij się, że logo.jpg istnieje!
         run: |
           pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg;." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
 
-      # BUDOWANIE (LINUX)
+      # 2. BUDOWANIE BINARKI (LINUX) - Etap 1
       - name: Build Binary (Linux)
         if: matrix.os == 'ubuntu-latest'
         run: |
           pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg:." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
 
-      # PRZYGOTOWANIE ARTEFAKTÓW
+      # 3. TWORZENIE APPIMAGE (LINUX) - Etap 2 (Wrapper)
+      - name: Create AppImage (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          # A. Przygotuj strukturę folderów AppDir
+          mkdir -p AppDir/usr/bin
+
+          # B. Skopiuj naszą aplikację jako 'AppRun' (to plik startowy)
+          cp dist/BookSummarizer AppDir/AppRun
+          chmod +x AppDir/AppRun
+
+          # C. Konwertuj logo.jpg na logo.png (AppImage woli PNG)
+          python -c "from PIL import Image; Image.open('logo.jpg').save('AppDir/logo.png')"
+
+          # D. Stwórz plik .desktop (Wizytówka aplikacji)
+          cat > AppDir/booksummarizer.desktop <<EOF
+          [Desktop Entry]
+          Type=Application
+          Name=BookSummarizer
+          Exec=AppRun
+          Icon=logo
+          Categories=Utility;Education;
+          EOF
+
+          # E. Pobierz narzędzie appimagetool
+          wget -q https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x appimagetool-x86_64.AppImage
+
+          # F. Zbuduj finalny plik .AppImage
+          # Używamy --appimage-extract-and-run bo GitHub Actions nie ma FUSE
+          ./appimagetool-x86_64.AppImage --appimage-extract-and-run AppDir
+
+      # PRZESYŁANIE GOTOWYCH PLIKÓW
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: BookSummarizer-${{ matrix.os }}
-          path: dist/BookSummarizer*
+          name: BookSummarizer-${{ matrix.TARGET }}
+          path: ${{ matrix.OUT_FILE_PATTERN }}

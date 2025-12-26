@@ -15,36 +15,9 @@ jobs:
         include:
           - os: ubuntu-latest
             TARGET: linux
-            # Linux Command:
-            # 1. Znajduje ścieżkę do CustomTkinter
-            # 2. Buduje binarkę z --collect-all (ważne dla CTK na Linux)
-            # 3. Używa linuxdeploy w trybie bezpiecznym (bez FUSE)
-            CMD_BUILD: |
-              echo "🔍 Checking files..."
-              ls -la
-
-              echo "📦 Building Binary with PyInstaller..."
-              pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg:." --collect-all customtkinter --hidden-import=PIL --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
-
-              echo "⬇️ Downloading LinuxDeploy..."
-              wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-              chmod +x linuxdeploy-x86_64.AppImage
-
-              echo "🚀 Creating AppImage..."
-              # Fix dla GitHub Actions (FUSE issue)
-              export APPIMAGE_EXTRACT_AND_RUN=1
-
-              ./linuxdeploy-x86_64.AppImage --appdir AppDir -e dist/BookSummarizer -i logo.jpg -d BookSummarizer.desktop --output appimage
-
-              echo "✅ Renaming..."
-              mv BookSummarizer*.AppImage dist/BookSummarizer.AppImage
-
-            OUT_FILE: dist/BookSummarizer.AppImage
-
+            OUT_FILE: dist/BookSummarizer
           - os: windows-latest
             TARGET: windows
-            # Windows Command:
-            CMD_BUILD: pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg;." --collect-all customtkinter --hidden-import=PIL --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
             OUT_FILE: dist/BookSummarizer.exe
 
     steps:
@@ -55,21 +28,36 @@ jobs:
         with:
           python-version: '3.10'
 
-      # Instalacja zależności systemowych (Linux)
-      - name: Install System Deps (Linux)
+      # KROK DEBUGUJĄCY: Pokaż, jakie pliki są w folderze (pomoże wykryć błędy w nazwie)
+      - name: 🔍 Debug - List Files
+        run: |
+          echo "Current directory content:"
+          ls -la
+
+      - name: Install System Deps (Linux only)
         if: matrix.TARGET == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-tk tcl-dev tk-dev fuse libfuse2
+          sudo apt-get install -y python3-tk tcl-dev tk-dev
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build Application
-        run: ${{ matrix.CMD_BUILD }}
+      # BUDOWANIE DLA LINUXA (Separator :)
+      # Upewnij się, że nazwa pliku 'booksummarizer.py' zgadza się z plikiem w repozytorium!
+      - name: Build with PyInstaller (Linux)
+        if: matrix.TARGET == 'linux'
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg:." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
+
+      # BUDOWANIE DLA WINDOWSA (Separator ;)
+      - name: Build with PyInstaller (Windows)
+        if: matrix.TARGET == 'windows'
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg;." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4

@@ -61,6 +61,7 @@ WH_BIZ="your_business_webhook_url"
 WH_PSY="your_psychology_webhook_url"
 WH_SCI="your_science_webhook_url"
 WH_OTH="your_other_webhook_url"
+```
 
 ## 🛠️ Build from Source
 

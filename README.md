@@ -1,9 +1,8 @@
-<div align="center">
-  <img src="logo.png" width="140" style="vertical-align: middle;" alt="Logo" />
-  <span style="font-size: 36px; font-weight: bold; vertical-align: middle; margin-left: 20px;">OutThink</span>
-</div>
-
-<br />
+<div display="inline-block">
+<h1 align="center" style="border-bottom: none;">
+  <img src="logo.png" width="140" style="vertical-align: middle; margin-right: 20px;" alt="Logo" />
+  <span style="vertical-align: middle;">OutThink</span>
+</h1></div>
 > **The Personal Knowledge Engine.** > Bridge the gap between raw information and your Second Brain.
 
 **OutThink** is a streamlined desktop utility designed to transform summaries, notes, and ideas into high-impact, searchable content on Discord. Unlike standard note-taking apps, OutThink forces structure upon your knowledge, offering both deep-dive analysis and rapid "Headway-style" insights.

@@ -1,5 +1,5 @@
-<h1 align="center">
-  <img src="logo.png" width="140" style="vertical-align: middle; margin-right: 15px;" alt="Logo" />
+<h1 align="center" style="border-bottom: none;">
+  <img src="logo.png" width="140" style="vertical-align: middle; margin-right: 20px;" alt="Logo" />
   <span style="vertical-align: middle;">OutThink</span>
 </h1>
 > **The Personal Knowledge Engine.** > Bridge the gap between raw information and your Second Brain.

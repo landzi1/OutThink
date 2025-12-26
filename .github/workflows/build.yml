@@ -15,12 +15,25 @@ jobs:
         include:
           - os: ubuntu-latest
             TARGET: linux
-            # ZMIANA: main.py -> booksummarizer.py
-            CMD_BUILD: pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg:." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
-            OUT_FILE: dist/BookSummarizer
+            # Budujemy binarkę, a potem używamy linuxdeploy do zrobienia AppImage
+            CMD_BUILD: |
+              pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg:." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
+
+              # Pobieranie linuxdeploy
+              wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+              chmod +x linuxdeploy-x86_64.AppImage
+
+              # Tworzenie AppImage
+              # -e: plik wykonywalny, -i: ikona, -d: plik desktop
+              ./linuxdeploy-x86_64.AppImage --appdir AppDir -e dist/BookSummarizer -i logo.jpg -d BookSummarizer.desktop --output appimage
+
+              # Zmiana nazwy wynikowego pliku na prostszą
+              mv BookSummarizer*.AppImage dist/BookSummarizer.AppImage
+
+            OUT_FILE: dist/BookSummarizer.AppImage
+
           - os: windows-latest
             TARGET: windows
-            # ZMIANA: main.py -> booksummarizer.py
             CMD_BUILD: pyinstaller --noconfirm --onefile --windowed --name "BookSummarizer" --add-data "logo.jpg;." --hidden-import=PIL --hidden-import=customtkinter --hidden-import=gtts --hidden-import=langdetect booksummarizer.py
             OUT_FILE: dist/BookSummarizer.exe
 
@@ -32,11 +45,12 @@ jobs:
         with:
           python-version: '3.10'
 
+      # Instalacja zależności systemowych (Tylko Linux)
       - name: Install System Deps (Linux)
         if: matrix.TARGET == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-tk tcl-dev tk-dev
+          sudo apt-get install -y python3-tk tcl-dev tk-dev fuse libfuse2
 
       - name: Install dependencies
         run: |
@@ -44,7 +58,7 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
 
-      - name: Build with PyInstaller
+      - name: Build Application
         run: ${{ matrix.CMD_BUILD }}
 
       - name: Upload Artifacts

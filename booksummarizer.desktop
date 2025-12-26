@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=BookSummarizer
+Comment=Knowledge Engine
+Exec=BookSummarizer
+Icon=logo
+Categories=Utility;Education;
+Terminal=false

@@ -16,8 +16,6 @@ jobs:
           - os: ubuntu-latest
             TARGET: linux
             # Linux Build Command:
-            # 1. PyInstaller tworzy 'dist/OutThink' (to jest Twój "zwykły plik linux")
-            # 2. LinuxDeploy bierze to i robi z tego AppImage
             CMD_BUILD: |
               echo "📦 Building Standard Linux Binary..."
               pyinstaller --noconfirm --onefile --windowed --name "OutThink" --add-data "logo.png:." --collect-all customtkinter --hidden-import=PIL --hidden-import=gtts --hidden-import=langdetect --hidden-import=requests outthink.py
@@ -30,7 +28,6 @@ jobs:
               export APPIMAGE_EXTRACT_AND_RUN=1
               ./linuxdeploy-x86_64.AppImage --appdir AppDir -e dist/OutThink -i logo.png -d OutThink.desktop --output appimage
 
-              # Zmieniamy nazwy dla porządku
               mv OutThink*.AppImage dist/OutThink.AppImage
 
             OUT_FILE_APPIMAGE: dist/OutThink.AppImage
@@ -57,21 +54,25 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3-tk tcl-dev tk-dev fuse libfuse2
 
+      # --- TU BYŁ BŁĄD: WYMUSZAMY INSTALACJĘ BIBLIOTEK RĘCZNIE ---
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
           pip install pyinstaller
+          # Wymuszamy instalację bibliotek, żeby PyInstaller ich nie szukał w próżni
+          pip install customtkinter gTTS langdetect Pillow requests python-dotenv packaging
 
-      - name: 🔍 Debug - List files
-        run: ls -R
+      - name: 🔍 Debug - Check Files
+        run: |
+          ls -R
+          echo "Checking logo..."
+          ls logo.png || echo "❌ LOGO NOT FOUND"
 
       - name: Build Application
         run: ${{ matrix.CMD_BUILD }}
 
       # --- UPLOAD ARTEFAKTÓW ---
 
-      # 1. Windows EXE
       - name: Upload Windows Exe
         if: matrix.TARGET == 'windows'
         uses: actions/upload-artifact@v4
@@ -79,7 +80,6 @@ jobs:
           name: OutThink-Windows
           path: ${{ matrix.OUT_FILE_EXE }}
 
-      # 2. Linux AppImage (Dla Bazzite/SteamDeck/Ubuntu)
       - name: Upload Linux AppImage
         if: matrix.TARGET == 'linux'
         uses: actions/upload-artifact@v4
@@ -87,7 +87,6 @@ jobs:
           name: OutThink-Linux-AppImage
           path: ${{ matrix.OUT_FILE_APPIMAGE }}
 
-      # 3. Linux Binary (Czysty plik wykonywalny)
       - name: Upload Linux Binary
         if: matrix.TARGET == 'linux'
         uses: actions/upload-artifact@v4

@@ -2,6 +2,6 @@ customtkinter
 requests
 gTTS
 Pillow
-python-dotenv
 langdetect
+packaging
 pyinstaller

@@ -1,7 +1,7 @@
-<div align="center">
-  <img src="logo.png" width="140" alt="OutThink Logo">
-  <h1>OutThink</h1>
-</div>
+<h1 align="center">
+  <img src="logo.png" width="55" style="vertical-align: middle; margin-right: 10px;" alt="Logo" />
+  OutThink
+</h1>
 
 > **The Personal Knowledge Engine.** > Bridge the gap between raw information and your Second Brain.
 

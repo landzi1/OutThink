@@ -1,6 +1,6 @@
-<div align="center">
+<div align="center" style="float: left;">
   <img src="logo.png" width="130" height="130" style="vertical-align: middle; display: inline-block;" alt="OutThink Logo">
-  <h1 style="display: inline-block; vertical-align: middle; margin: 0; padding-left: 20px; border-bottom: none; font-size: 60px;">OutThink</h1>
+  <h1 style="display: inline-block; vertical-align: middle; margin: 0; padding-left: 20px; border-bottom: none; font-size: 60px; float:left;">OutThink</h1>
 </div>
 
 <div align="center" style="margin-top: 10px;">

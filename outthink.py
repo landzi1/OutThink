@@ -53,6 +53,11 @@ class OutThinkApp(ctk.CTk):
     def __init__(self):
         super().__init__()
 
+        try:
+            self.wm_class("OutThink", "OutThink")
+        except:
+            pass
+
         # 0. Load Configuration
         self.webhooks = self.load_config()
 

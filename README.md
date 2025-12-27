@@ -1,11 +1,10 @@
-<div align="center">
-  <img src="logo.png" width="140" height="140" style="vertical-align: middle;" alt="Logo" /><span style="font-size: 60px; font-weight: bold; vertical-align: middle; margin-left: 30px;">OutThink</span>
-</div>
+<p align="center"><img src="logo.png" width="120" style="vertical-align: middle; margin-right: 15px;" alt="Logo" /><span style="font-size: 50px; font-weight: 800; vertical-align: middle;">OutThink</span></p>
 
-<div align="center" style="margin-top: 10px;">
+<p align="center" style="font-size: 18px; color: #666; margin-top: 0;">
   <b>The Personal Knowledge Engine.</b><br>
   <i>Operationalize raw information into a high-fidelity Second Brain.</i>
-</div>
+</p>
+
 ---
 
 **OutThink** is not a note-taking app; it is a **knowledge pipeline**. It solves the problem of "information hoarding" by enforcing structure upon your inputs. Whether you are processing a technical textbook or a strategic guide, OutThink compels you to distill chaos into searchable, high-impact assets on Discord.

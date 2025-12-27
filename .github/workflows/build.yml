@@ -15,10 +15,15 @@ jobs:
         include:
           - os: ubuntu-latest
             TARGET: linux
-            # NAPRAWA: Dodano 'dos2unix' na początku, żeby naprawić plik .desktop z Windowsa
+            # NAPRAWA:
+            # 1. dos2unix (naprawa enterów)
+            # 2. convert (naprawa za dużej ikony 2048px -> 512px)
             CMD_BUILD: |
-              echo "🔧 Fixing Line Endings (Windows -> Linux)..."
+              echo "🔧 Fixing Line Endings..."
               dos2unix OutThink.desktop
+
+              echo "🎨 Resizing Icon to 512x512 (Fixing 2048px error)..."
+              convert logo.png -resize 512x512 logo.png
 
               echo "📦 Building Standard Linux Binary..."
               pyinstaller --noconfirm --onefile --windowed --name "OutThink" --add-data "logo.png:." --collect-all customtkinter --hidden-import=PIL --hidden-import=gtts --hidden-import=langdetect --hidden-import=requests outthink.py
@@ -38,7 +43,7 @@ jobs:
 
           - os: windows-latest
             TARGET: windows
-            # Windows Build (Tu nic nie zmieniamy, bo działa)
+            # Windows (działa poprawnie)
             CMD_BUILD: pyinstaller --noconfirm --onefile --windowed --name "OutThink" --add-data "logo.png;." --collect-all customtkinter --hidden-import=PIL --hidden-import=gtts --hidden-import=langdetect --hidden-import=requests outthink.py
             OUT_FILE_EXE: dist/OutThink.exe
 
@@ -50,18 +55,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      # NAPRAWA: Dodano 'dos2unix' do instalacji
+      # NAPRAWA: Dodano imagemagick (do zmiany rozmiaru logo) i dos2unix
       - name: Install System Deps (Linux)
         if: matrix.TARGET == 'linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y python3-tk tcl-dev tk-dev fuse libfuse2 dos2unix
+          sudo apt-get install -y python3-tk tcl-dev tk-dev fuse libfuse2 dos2unix imagemagick
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller packaging
-          # Instalujemy biblioteki
           pip install customtkinter gTTS langdetect Pillow requests
 
       - name: 🔍 Debug - Check Files

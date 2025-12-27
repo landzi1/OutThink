@@ -1,20 +1,17 @@
-# Python cache
+# --- User Data & Config ---
+config.json
+.env
+
+# --- Python Compilation Junk ---
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Virtual Environment
-venv/
-.env
-
-# User Configuration (BARDZO WAŻNE)
-config.json
-
-# Build artifacts
+# --- Build Artifacts ---
 build/
 dist/
 *.spec
 
-# Distribution files
-*.exe
-*.AppImage
+# --- OS Junk ---
+.DS_Store
+Thumbs.db

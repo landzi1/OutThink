@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" width="110" height="110" style="vertical-align:middle" alt="OutThink Logo" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 56px; font-weight: 800; vertical-align:middle">OutThink</span>
+  <img src="logo.png" width="110" height="110" style="vertical-align:middle" alt="OutThink Logo" />&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 56px; font-weight: 800; vertical-align:middle; display: center;">OutThink</span>
 </p>
 
 <p align="center" style="font-size: 18px; color: #666; margin-bottom: 30px;">

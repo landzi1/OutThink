@@ -1,94 +1,83 @@
-# OutThink // The Personal Knowledge Engine
+# OutThink
 
 ![OutThink Banner](assets/banner.png)
-<!-- GRAFIKA: Banner z logo OutThink i hasłem "Consume. Distill. Deploy." -->
+<!-- GRAFIKA: Minimalistyczny banner z logo i hasłem np. "Your Knowledge Engine" -->
 
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+OutThink is a desktop tool built for people who consume a lot of content but struggle to retain and organize it. It bridges the gap between where you learn (YouTube, articles, books) and where you store your knowledge (Notion, Obsidian, Discord).
 
-**OutThink** is a comprehensive knowledge management system designed for power users. It bridges the gap between passive consumption (YouTube, Articles) and active retention (Notion, Obsidian), powered by advanced AI and Neural Audio synthesis.
+Instead of manually copy-pasting notes between apps, OutThink automates the distillation process using AI and handles the distribution to your personal databases.
 
-It's not just a note-taking app; it's your personal **Editor-in-Chief**.
+## What you can do with it
 
----
-
-## ⚡ Key Capabilities
-
-### 🎥 YouTube Intelligence
-Paste any YouTube link, and OutThink will watch it for you. It extracts the transcript, analyzes the content using **Groq AI (Llama 3)**, and generates a structured summary (Deep Dive) or key insights (Quick Spark).
+### 1. Turn YouTube videos into structured notes
+Paste a link to any YouTube video (lectures, podcasts, tutorials). OutThink grabs the transcript and uses AI (Groq Llama 3) to generate a summary. You can choose between:
+*   **Quick Spark**: 3 key takeaways, perfect for a quick review.
+*   **Deep Dive**: A detailed, essay-style summary with headers and key points.
 
 ![YouTube Workflow](assets/youtube_demo.gif)
-<!-- GIF: Pokaż wklejanie linku YT do czatu AI Assistant i generowanie wyniku. -->
+<!-- GIF: Wklejasz link YT, klikasz enter, pojawia się podsumowanie. -->
 
-### 🧠 AI Assistant Chatbot
-Interact with your content. Ask the built-in chatbot to refine ideas, expand on concepts, or format text for specific platforms.
+### 2. Chat with an AI Editor
+The built-in assistant isn't just a summarizer. You can treat it as an editor. Paste a rough draft or a messy article and ask it to:
+*   "Fix the grammar and make it punchy."
+*   "Format this for a Discord announcement."
+*   "Extract all book recommendations from this text."
 
 ![Chatbot](assets/chatbot.png)
-<!-- SCREENSHOT: Widok zakładki AI Assistant z rozmową. -->
+<!-- SCREENSHOT: Rozmowa z asystentem w zakładce AI Assistant. -->
 
-### 🔗 Multi-Target Deployment
-One click sends your distilled knowledge everywhere:
-*   **Discord**: Beautifully formatted embeds for your community.
-*   **Notion**: Automatically creates database entries with tags and metadata.
-*   **Local Vault**: Saves Markdown (`.md`) files for Obsidian/Logseq.
+### 3. Build a "Second Brain" automatically
+When you save a note in OutThink, it doesn't just disappear. You can configure it to instantly:
+*   **Create a page in Notion** with properties like Author, Category, and Date filled out.
+*   **Save a Markdown file** to your local folder (great for Obsidian or Logseq users).
+*   **Post to Discord** as a formatted embed to share knowledge with your community.
+
+You can toggle these targets on or off for every note.
 
 ![Deployment](assets/deployment.png)
-<!-- SCREENSHOT: Pokaż panel "Target Systems" i przycisk Execute. -->
+<!-- SCREENSHOT: Panel Target Systems i przycisk Execute. -->
 
-### 🎧 Neural Audio
-Turn your notes into a private podcast using Microsoft's Edge TTS neural voices. Perfect for reviewing knowledge on the go.
+### 4. Listen to your notes
+OutThink can read your notes back to you using high-quality neural text-to-speech (Edge TTS). It automatically detects if the text is in English or Polish and selects a natural-sounding voice. This is useful for reviewing your notes while commuting or walking.
 
----
-
-## 🛠️ Installation & Setup
-
-### Prerequisites
-1.  **Python 3.10+** installed.
-2.  **Groq API Key** (Free) - for AI features.
-3.  **Notion Integration** (Optional) - for syncing.
-
-### Quick Start
-```bash
-# 1. Clone the repository
-git clone https://github.com/landzi1/OutThink.git
-cd OutThink
-
-# 2. Install dependencies
-pip install -r requirements.txt
-
-# 3. Launch
-python outthink.py
-```
-
-### Configuration
-Click the **⚙️ Settings** icon in the app to configure your API keys.
-*   **Groq API**: Get your key at [console.groq.com](https://console.groq.com).
-*   **Notion**: Create an integration at [notion.so/my-integrations](https://www.notion.so/my-integrations).
+### 5. Never lose a thought
+Every note you process is saved in a local history (SQLite database). You can browse your archive, search for past insights, and re-export them at any time.
 
 ---
 
-## 🏗️ Build from Source
+## Getting Started
 
-You can build standalone executables for Windows and Linux.
+### Requirements
+*   Windows or Linux
+*   Python 3.10+ (if running from source)
+*   Free Groq API Key (for AI features)
 
-**Linux (AppImage & Binary):**
-```bash
-# Requires pyinstaller, linuxdeploy, and appimagetool
-# Check .github/workflows/build.yml for the full CI/CD pipeline
-```
+### Installation
 
-**Windows (.exe):**
-```bash
-pyinstaller --noconfirm --onefile --windowed --name "OutThink" --add-data "logo.png;." --collect-all customtkinter --hidden-import=PIL --hidden-import=edge_tts --hidden-import=langdetect --hidden-import=notion_client --hidden-import=youtube_transcript_api --hidden-import=requests outthink.py
-```
+**Option A: Download**
+Grab the latest release for your OS from the [Releases page](../../releases).
+
+**Option B: Run from source**
+1.  Clone this repository.
+2.  Install dependencies: `pip install -r requirements.txt`
+3.  Run the app: `python outthink.py`
+
+### First Run Setup
+Click the **Settings (⚙️)** button in the sidebar to connect your services:
+1.  **Groq API**: Required for AI. It's free and fast.
+2.  **Notion**: Optional. Follow the in-app guide to connect your database.
+3.  **Local Backup**: Optional. Select a folder where you want your .md files.
 
 ---
 
-## 📜 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+## Tech Stack
+Built with Python.
+*   **UI**: CustomTkinter
+*   **AI**: Groq API (Llama 3)
+*   **Audio**: Edge TTS
+*   **Integrations**: Notion API, Discord Webhooks, YouTube Transcript API
+*   **Data**: SQLite
 
 ---
 
-**Engineered by [Landzi1](https://github.com/landzi1)**
+**Created by [Landzi1](https://github.com/landzi1)**

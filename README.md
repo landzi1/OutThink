@@ -1,7 +1,9 @@
-# OutThink
+<div align="center">
+  <img src="logo.png" width="80" height="80" style="vertical-align: middle; margin-right: 20px;" />
+  <span style="font-size: 48px; font-weight: bold; vertical-align: middle;">OutThink</span>
+</div>
 
-![OutThink Banner](assets/banner.png)
-<!-- GRAFIKA: Minimalistyczny banner z logo i hasłem np. "Your Knowledge Engine" -->
+---
 
 OutThink is a desktop tool built for people who consume a lot of content but struggle to retain and organize it. It bridges the gap between where you learn (YouTube, articles, books) and where you store your knowledge (Notion, Obsidian, Discord).
 
@@ -28,9 +30,9 @@ The built-in assistant isn't just a summarizer. You can treat it as an editor. P
 
 ### 3. Build a "Second Brain" automatically
 When you save a note in OutThink, it doesn't just disappear. You can configure it to instantly:
-*   **Create a page in Notion** with properties like Author, Category, and Date filled out.
-*   **Save a Markdown file** to your local folder (great for Obsidian or Logseq users).
-*   **Post to Discord** as a formatted embed to share knowledge with your community.
+*   Create a page in Notion with properties like Author, Category, and Date filled out.
+*   Save a Markdown file to your local folder (great for Obsidian or Logseq users).
+*   Post to Discord as a formatted embed to share knowledge with your community.
 
 You can toggle these targets on or off for every note.
 
@@ -55,7 +57,7 @@ Every note you process is saved in a local history (SQLite database). You can br
 ### Installation
 
 **Option A: Download**
-Grab the latest release for your OS from the [Releases page](../../releases).
+Grab the latest release for your OS from the Releases page.
 
 **Option B: Run from source**
 1.  Clone this repository.
@@ -63,7 +65,7 @@ Grab the latest release for your OS from the [Releases page](../../releases).
 3.  Run the app: `python outthink.py`
 
 ### First Run Setup
-Click the **Settings (⚙️)** button in the sidebar to connect your services:
+Click the Settings button in the sidebar to connect your services:
 1.  **Groq API**: Required for AI. It's free and fast.
 2.  **Notion**: Optional. Follow the in-app guide to connect your database.
 3.  **Local Backup**: Optional. Select a folder where you want your .md files.
@@ -80,4 +82,6 @@ Built with Python.
 
 ---
 
-**Created by [Landzi1](https://github.com/landzi1)**
+<div align="center">
+  <b>Engineered by <a href="https://github.com/landzi1">Landzi1</a></b>
+</div>

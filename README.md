@@ -1,135 +1,94 @@
-<div align="center">
-  <table style="border: none; background: none;">
-    <tr>
-      <td style="border: none; padding-right: 20px; vertical-align: middle;">
-        <img src="logo.png" width="120" alt="Logo" />
-      </td>
-      <td style="border: none; vertical-align: middle;">
-        <h1 style="border: none; margin: 0; padding: 0; font-size: 56px; font-weight: 800;">OutThink</h1>
-      </td>
-    </tr>
-  </table>
+# OutThink // The Personal Knowledge Engine
 
-  <p style="font-size: 18px; color: #666;">
-    <b>The Personal Knowledge Engine.</b><br>
-    <i>Operationalize raw information into a high-fidelity Second Brain.</i>
-  </p>
-</div>
+![OutThink Banner](assets/banner.png)
+<!-- GRAFIKA: Banner z logo OutThink i hasłem "Consume. Distill. Deploy." -->
+
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+**OutThink** is a comprehensive knowledge management system designed for power users. It bridges the gap between passive consumption (YouTube, Articles) and active retention (Notion, Obsidian), powered by advanced AI and Neural Audio synthesis.
+
+It's not just a note-taking app; it's your personal **Editor-in-Chief**.
 
 ---
 
-**OutThink** is not a note-taking app; it is a **knowledge pipeline**. It solves the problem of "information hoarding" by enforcing structure upon your inputs. Whether you are processing a technical textbook or a strategic guide, OutThink compels you to distill chaos into searchable, high-impact assets on Discord.
+## ⚡ Key Capabilities
 
-Engineered with a distraction-free **Cream & Taupe** aesthetic to minimize cognitive load, featuring a local-first architecture and neural audio synthesis for passive consumption.
+### 🎥 YouTube Intelligence
+Paste any YouTube link, and OutThink will watch it for you. It extracts the transcript, analyzes the content using **Groq AI (Llama 3)**, and generates a structured summary (Deep Dive) or key insights (Quick Spark).
 
----
+![YouTube Workflow](assets/youtube_demo.gif)
+<!-- GIF: Pokaż wklejanie linku YT do czatu AI Assistant i generowanie wyniku. -->
 
-## 📸 Visual Architecture
+### 🧠 AI Assistant Chatbot
+Interact with your content. Ask the built-in chatbot to refine ideas, expand on concepts, or format text for specific platforms.
 
-### The Interface
-A minimalist abstraction layer for focused input.
-![Application Interface](assets/app_ui.png)
+![Chatbot](assets/chatbot.png)
+<!-- SCREENSHOT: Widok zakładki AI Assistant z rozmową. -->
 
-### The Payload (Discord)
-Structured data injection. Automated reading time calculation, semantic color-coding, and modular layout.
-![Discord Embed Preview](assets/discord_preview.gif)
+### 🔗 Multi-Target Deployment
+One click sends your distilled knowledge everywhere:
+*   **Discord**: Beautifully formatted embeds for your community.
+*   **Notion**: Automatically creates database entries with tags and metadata.
+*   **Local Vault**: Saves Markdown (`.md`) files for Obsidian/Logseq.
 
----
+![Deployment](assets/deployment.png)
+<!-- SCREENSHOT: Pokaż panel "Target Systems" i przycisk Execute. -->
 
-## ⚡ Core Capabilities
-
-### 🧠 Structured Ingestion Modes
-* **Deep Dive Protocol:** Designed for granular analysis. Supports rich text formatting (`Markdown`) via an integrated toolbar. The engine automatically fragments long-form content into Discord-compliant chunks without losing context.
-* **⚡ Quick Spark (Headway Model):** A rapid-fire synthesis mode. Forces the user to compress complex topics into **3 Axioms** (Concept, Mechanism, Outcome). Renders a specialized, high-contrast visualization on Discord.
-
-### 🎨 Cognitive UI Design
-* **Zero-Distraction Environment:** The UI purposefully lacks clutter. Every pixel serves the input process.
-* **Semantic Formatting:** The system creates visual hierarchy automatically using Discord Embeds, reducing the friction between "reading" and "understanding".
-* **Dynamic Tagging:** Categories (*Business, Psychology, Tech*) are visually distinct via a hardcoded muted-luxury color palette.
-
-### 🎧 Neural Audio Pipeline
-* **Local-to-Cloud Synthesis:** The engine utilizes Google's Neural TTS to generate podcast-grade audio summaries (.mp3) in real-time.
-* **Smart Language Detection:** Analyzes the input stream to automatically switch synthesis models between English and Polish.
-
-### ⚙️ System Configuration
-* **Integrated Channel Manager:** Configure output endpoints (Webhooks) directly within the GUI. No config files or environment variables required.
-* **Portable Architecture:** Compiled as a standalone binary. No dependencies, no installation wizard.
+### 🎧 Neural Audio
+Turn your notes into a private podcast using Microsoft's Edge TTS neural voices. Perfect for reviewing knowledge on the go.
 
 ---
 
-## 📥 Deployment
+## 🛠️ Installation & Setup
 
-Navigate to **[Releases](../../releases)** to retrieve the latest build (`v1.5+`).
+### Prerequisites
+1.  **Python 3.10+** installed.
+2.  **Groq API Key** (Free) - for AI features.
+3.  **Notion Integration** (Optional) - for syncing.
 
-### 🪟 Windows
-1.  Download `OutThink.exe`.
-2.  Execute.
-    * *Note: The binary is unsigned. If SmartScreen triggers, acknowledge via "More info" -> "Run anyway".*
+### Quick Start
+```bash
+# 1. Clone the repository
+git clone https://github.com/landzi1/OutThink.git
+cd OutThink
 
-### 🐧 Linux (Universal)
-Distributed as an **AppImage** for maximum compatibility (Ubuntu, Fedora, Arch, Bazzite, SteamOS).
+# 2. Install dependencies
+pip install -r requirements.txt
 
-**Method A: AppImage (Recommended)**
-1.  Download `OutThink.AppImage`.
-2.  `Right-click` → `Properties` → `Permissions` → **Allow executing file as program**.
-3.  Execute.
-    * *Pro Tip: Use [Gear Lever](https://github.com/mijorus/gearlever) to manage AppImage integration.*
+# 3. Launch
+python outthink.py
+```
 
-**Method B: Raw Binary**
-For minimalists, download the `OutThink` binary, apply `chmod +x OutThink`, and execute via terminal.
-
----
-
-## 🚀 Initialization Guide
-
-### 1. Establish Discord Uplink
-OutThink pushes data via Webhooks.
-1.  **Discord Server Settings** → **Apps & Integrations** → **Webhooks**.
-2.  **New Webhook** → Select Target Channel.
-3.  **Copy Webhook URL**.
-
-### 2. Configure Engine
-1.  Launch OutThink.
-2.  Select **"⚙️ Manage Channels"** in the sidebar.
-3.  Define a **Sector Name** (e.g., *Engineering, Strategy, Mental Models*).
-4.  Input the **Webhook URL**.
-5.  **ADD CHANNEL**.
-
-### 3. Execute
-* **Target Sector:** Select from the sidebar dropdown.
-* **Select Mode:** `Deep Dive` for documentation, `Quick Spark` for axioms.
-* **Neural Audio:** Toggle if audio synthesis is required.
-* **DEPLOY:** Initiates the processing and upload sequence.
+### Configuration
+Click the **⚙️ Settings** icon in the app to configure your API keys.
+*   **Groq API**: Get your key at [console.groq.com](https://console.groq.com).
+*   **Notion**: Create an integration at [notion.so/my-integrations](https://www.notion.so/my-integrations).
 
 ---
 
-## 🛠️ Build from Source
+## 🏗️ Build from Source
 
-**Prerequisites:** Python 3.10+, `pip`, `git`.
+You can build standalone executables for Windows and Linux.
 
-1.  **Clone Repository:**
-    ```bash
-    git clone https://github.com/landzi1/OutThink.git
-    cd OutThink
-    ```
+**Linux (AppImage & Binary):**
+```bash
+# Requires pyinstaller, linuxdeploy, and appimagetool
+# Check .github/workflows/build.yml for the full CI/CD pipeline
+```
 
-2.  **Install Dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-3.  **Launch:**
-    ```bash
-    python outthink.py
-    ```
+**Windows (.exe):**
+```bash
+pyinstaller --noconfirm --onefile --windowed --name "OutThink" --add-data "logo.png;." --collect-all customtkinter --hidden-import=PIL --hidden-import=edge_tts --hidden-import=langdetect --hidden-import=notion_client --hidden-import=youtube_transcript_api --hidden-import=requests outthink.py
+```
 
 ---
 
-## 💻 Tech Stack
+## 📜 License
 
-* **Core Logic:** Python 3.10+
-* **GUI Engine:** CustomTkinter (Heavily Modified)
-* **Audio Synthesis:** gTTS (Google Neural API), LangDetect
-* **Packaging:** PyInstaller, LinuxDeploy (CI/CD via GitHub Actions)
+Distributed under the MIT License. See `LICENSE` for more information.
 
-**Engineered by [landzi1](https://github.com/landzi1).**
+---
+
+**Engineered by [Landzi1](https://github.com/landzi1)**

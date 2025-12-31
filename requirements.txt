@@ -1,7 +1,9 @@
 customtkinter
-requests
-gTTS
-Pillow
+edge-tts
 langdetect
+Pillow
+requests
 packaging
-pyinstaller
+notion-client
+youtube-transcript-api
+
